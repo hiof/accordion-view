@@ -1,77 +1,37 @@
 (function(Hiof, undefined) {
 
     // Functions
+    //mentorprogramAppendData = function(data, settings) {
+//
+    //};
+
     mentorprogramAppendData = function(data, settings) {
 
-    };
+        var lang = Hiof.options.language.toString();
+        var i18n = Hiof.options.i18n;
+        //var data = semesterStartLoadData(options);
+        //debug('From itservicesAppendData:');
+        //debug(lang);
+        //debug(i18n.en.itservices.readmore);
+        data.meta = settings;
 
-    //itservicesAppendData = function(data, settings) {
-    //
-    //    var lang = Hiof.options.language.toString();
-    //    var i18n = Hiof.options.i18n;
-    //    //var data = semesterStartLoadData(options);
-    //    //debug('From itservicesAppendData:');
-    //    //debug(lang);
-    //    //debug(i18n.en.itservices.readmore);
-    //    data.meta = settings;
-    //    data.meta.type = 'itservices';
-    //    if (lang == 'en') {
-    //        //debug("lang is english");
-    //        data.meta.readmore = i18n.en.itservices.readmore;
-    //        if (settings.audience === 'employee') {
-    //            data.meta.title = i18n.en.itservices.titleeployee;
-    //        } else {
-    //            data.meta.title = i18n.en.itservices.titlestudents;
-    //        }
-    //    } else {
-    //        //debug("lang is norwegian");
-    //        data.meta.readmore = i18n.nb.itservices.readmore;
-    //        if (settings.audience === 'employee') {
-    //            data.meta.title = i18n.nb.itservices.titleeployee;
-    //        } else {
-    //            data.meta.title = i18n.nb.itservices.titlestudents;
-    //        }
-    //    }
-    //
-    //
-    //
-    //    //debug(data);
-    //    var templateSource, markup;
-    //
-    //    if (settings.template === 'single') {
-    //        data.meta.pagetitle = data.page['0'].pagetitle;
-    //        if (settings.audience === 'employee') {
-    //            data.meta.support = [{
-    //                "url": 'http://www2.hiof.no/nor/it_drift/ansatthjelp#/it-tjenester/24408',
-    //                "name": 'FAQ'
-    //            }, {
-    //                "url": 'mailto:itvakt@hiof.no',
-    //                "name": 'Epost'
-    //            }];
-    //        } else {
-    //            data.meta.support = [{
-    //                "url": 'http://www2.hiof.no/nor/it_drift/studenthjelp#/it-tjenester/23547',
-    //                "name": 'FAQ'
-    //            }, {
-    //                "url": 'mailto:itvakt@hiof.no',
-    //                "name": 'Epost'
-    //            }];
-    //        }
-    //        templateSourceBreadcrumb = Hiof.Templates['itservices/breadcrumbs'];
-    //        templateSource = Hiof.Templates['page/show'];
-    //        templateSourceSupport = Hiof.Templates['itservices/support'];
-    //        markup = templateSourceBreadcrumb(data) + templateSource(data) + templateSourceSupport(data) + templateSourceBreadcrumb(data);
-    //    } else {
-    //        templateSource = Hiof.Templates['itservices/list'];
-    //
-    //        markup = templateSource(data);
-    //    }
-    //
-    //
-    //    $('#itservices').html(markup);
-    //    var scrollDestEl = "#content";
-    //    Hiof.scrollToElement(scrollDestEl);
-    //};
+
+
+
+        //debug(data);
+        var templateSource, markup;
+
+
+
+            templateSource = Hiof.Templates['mentorprogram/show'];
+
+            markup = templateSource(data);
+
+
+        $('#mentorprogram').html(markup);
+        var scrollDestEl = "#content";
+        Hiof.scrollToElement(scrollDestEl);
+    };
 
 
     mentorprogramLoadData = function(options) {
@@ -80,8 +40,9 @@
 
         // Setup the query
         var settings = $.extend({
-            id: '24236',
-            url: 'http://hiof.no/api/v1/itservices/'
+            id: 24236,
+            url: 'http://hiof.no/api/v1/page-relationship/',
+            server: 'www2'
         }, options);
         //debug(settings);
 
@@ -101,7 +62,7 @@
                 //alert("Data from Server: "+JSON.stringify(data));
                 //debug('Settings from success');
                 //debug(settings);
-                //debug('Data from success');
+                debug('Data from success');
                 debug(data);
                 //return data;
                 mentorprogramAppendData(data, settings);
@@ -132,6 +93,7 @@
 
     // Run functions on load
     $(function() {
+        console.log("JS loaded");
         if ($('#mentorprogram').length) {
 
             initatePathMentorprogram();

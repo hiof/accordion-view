@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     cssmin: {
       main: {
         options: {
-          banner: '/*! <%= pkg.name %> v<%= pkg.version %> by <%= pkg.author %>, released: <%= moment().format("hh:mm DD-MM-YYYY") %> */'
+          banner: '/*! <%= pkg.name %> v<%= pkg.version %> by <%= pkg.author %>, released: <%= moment().format("HH:mm DD-MM-YYYY") %> */'
         },
         expand: true,
         cwd: 'build',
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          "build/templates.js": ["vendor/frontend/app/templates/page/show.hbs", "app/templates/**/*.hbs"]
+          "build/templates.js": ["app/templates/**/*.hbs"]
         }
       }
     },
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
           'vendor/detectjs/detect.min.js',
           'vendor/frontend/app/assets/js/components/__helper.js',
           'vendor/frontend/app/assets/js/components/__options.js',
-          'app/assets/js/components/_component_itservices.js'
+          'app/assets/js/components/_component_mentorprogram.js'
         ],
         dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
       }
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         mangle: false,
         //compress: true,
         preserveComments: false,
-        banner: '/*! <%= pkg.name %> v<%= pkg.version %> by <%= pkg.author %>, released: <%= moment().format("hh:mm DD-MM-YYYY") %> */'
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> by <%= pkg.author %>, released: <%= moment().format("HH:mm DD-MM-YYYY") %> */'
       },
       main: {
         files: {
