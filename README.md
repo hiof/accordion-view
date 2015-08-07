@@ -36,8 +36,10 @@ $ bower install
 
 ## Releases
 
+v1.0.0 - Initial mentorprogram view
+
 [Github releases](https://github.com/hiof/mentorprogram-view/releases)
 
 ### Roadmap
 
-v1.0.0 - Initial mentorprogram view
+

@@ -1,0 +1,30 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+{{#each children}}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading-{{id}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collaps-{{id}}" aria-expanded="true" aria-controls="collaps-{{id}}">
+          {{pagetitle}}
+        </a>
+      </h4>
+    </div>
+    <div id="collaps-{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{id}}">
+      <div class="panel-body">
+        {{{contents}}}
+      </div>
+      <div class="panel-footer">
+        <p>      {{#if time_modified}}
+
+        <small>Sist oppdatert av <a href="mailto:{{modified_by_email}}">{{modified_by}}</a> den {{time_modified}}</small>
+      {{else}}
+        <small>Skrevet av <a href="mailto:{{created_by_email}}">{{created_by}}</a> den {{time_created}}</small>
+      {{/if}}</p>
+      </div>
+    </div>
+  </div>
+{{/each}}
+</div>
+
+
