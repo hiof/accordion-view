@@ -62,8 +62,8 @@
                 //alert("Data from Server: "+JSON.stringify(data));
                 //debug('Settings from success');
                 //debug(settings);
-                debug('Data from success');
-                debug(data);
+                //debug('Data from success');
+                //debug(data);
                 //return data;
                 mentorprogramAppendData(data, settings);
                 //Hiof.articleDisplayView(data, settings);
@@ -100,24 +100,22 @@
             Path.listen();
 
         }
-
-        $(document).on('click', '#mentorprogram a', function(e) {
-
-            $(this).toggleClass('open');
-
-            //e.preventDefault();
-            //var url = $(this).attr('href');
-            //if (url.substring(0, 2) == "#/") {
-            //    //debug('String starts with #/');
-            //} else if (url.substring(0, 1) == "#") {
-            //    hash = url + "";
-            //    e.preventDefault();
-            //    setTimeout(function() {
-            //        scrollToElement(hash);
-            //    }, 200);
-            //
-            //}
-        });
+        $('.collapse').collapse();
+        //$(document).on('click', '#mentorprogram a', function(e) {
+        //    $(this).toggleClass('open');
+        //    //e.preventDefault();
+        //    //var url = $(this).attr('href');
+        //    //if (url.substring(0, 2) == "#/") {
+        //    //    //debug('String starts with #/');
+        //    //} else if (url.substring(0, 1) == "#") {
+        //    //    hash = url + "";
+        //    //    e.preventDefault();
+        //    //    setTimeout(function() {
+        //    //        scrollToElement(hash);
+        //    //    }, 200);
+        //    //
+        //    //}
+        //});
 
 
     });

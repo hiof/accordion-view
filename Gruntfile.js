@@ -95,6 +95,8 @@ module.exports = function(grunt) {
           'vendor/detectjs/detect.min.js',
           'vendor/frontend/app/assets/js/components/__helper.js',
           'vendor/frontend/app/assets/js/components/__options.js',
+          'vendor/bootstrap/js/transition.js',
+          'vendor/bootstrap/js/collapse.js',
           'app/assets/js/components/_component_mentorprogram.js'
         ],
         dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
