@@ -1,4 +1,4 @@
-# Hiof mentorprogram view package
+# Hiof accordion view package
 
 ## About
 

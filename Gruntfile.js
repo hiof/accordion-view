@@ -97,7 +97,7 @@ module.exports = function(grunt) {
           'vendor/frontend/app/assets/js/components/__options.js',
           'vendor/bootstrap/js/transition.js',
           'vendor/bootstrap/js/collapse.js',
-          'app/assets/js/components/_component_mentorprogram.js'
+          'app/assets/js/components/_component_accordion.js'
         ],
         dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
       }
