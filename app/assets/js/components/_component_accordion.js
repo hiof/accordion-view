@@ -1,11 +1,11 @@
 (function(Hiof, undefined) {
 
     // Functions
-    //mentorprogramAppendData = function(data, settings) {
+    //accordionAppendData = function(data, settings) {
 //
     //};
 
-    mentorprogramAppendData = function(data, settings) {
+    accordionAppendData = function(data, settings) {
 
         var lang = Hiof.options.language.toString();
         var i18n = Hiof.options.i18n;
@@ -23,24 +23,24 @@
 
 
 
-            templateSource = Hiof.Templates['mentorprogram/show'];
+            templateSource = Hiof.Templates['accordion/show'];
 
             markup = templateSource(data);
 
 
-        $('#mentorprogram').html(markup);
+        $('#accordion').html(markup);
         var scrollDestEl = "#content";
         Hiof.scrollToElement(scrollDestEl);
     };
 
 
-    mentorprogramLoadData = function(options) {
+    accordionLoadData = function(options) {
+        var pageTreeID = $('#accordion').attr('data-page-tree-id');
 
-
-
+//24236
         // Setup the query
         var settings = $.extend({
-            id: 24236,
+            id: pageTreeID,
             url: 'http://hiof.no/api/v1/page-relationship/',
             server: 'www2'
         }, options);
@@ -65,7 +65,7 @@
                 //debug('Data from success');
                 //debug(data);
                 //return data;
-                mentorprogramAppendData(data, settings);
+                accordionAppendData(data, settings);
                 //Hiof.articleDisplayView(data, settings);
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -78,30 +78,30 @@
     };
 
     // Routing
-    Path.map("#/mentorprogram").to(function() {
-        mentorprogramLoadData();
+    Path.map("#/informasjon").to(function() {
+        accordionLoadData();
     });
-    Path.map("#/mentorprogram/").to(function() {
-        mentorprogramLoadData();
+    Path.map("#/informasjon/").to(function() {
+        accordionLoadData();
     });
 
-    initatePathMentorprogram = function() {
+    initatePathaccordion = function() {
         // Load root path if no path is active
-        Path.root("#/mentorprogram");
+        Path.root("#/informasjon");
     };
 
 
     // Run functions on load
     $(function() {
         console.log("JS loaded");
-        if ($('#mentorprogram').length) {
+        if ($('#accordion').length) {
 
-            initatePathMentorprogram();
+            initatePathaccordion();
             Path.listen();
 
         }
         $('.collapse').collapse();
-        //$(document).on('click', '#mentorprogram a', function(e) {
+        //$(document).on('click', '#accordion a', function(e) {
         //    $(this).toggleClass('open');
         //    //e.preventDefault();
         //    //var url = $(this).attr('href');
