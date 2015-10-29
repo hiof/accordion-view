@@ -2,7 +2,7 @@
 
     // Functions
     //accordionAppendData = function(data, settings) {
-//
+    //
     //};
 
     accordionAppendData = function(data, settings) {
@@ -23,9 +23,9 @@
 
 
 
-            templateSource = Hiof.Templates['accordion/show'];
+        templateSource = Hiof.Templates['accordion/show'];
 
-            markup = templateSource(data);
+        markup = templateSource(data);
 
 
         $('#accordion').html(markup);
@@ -37,7 +37,7 @@
     accordionLoadData = function(options) {
         var pageTreeID = $('#accordion').attr('data-page-tree-id');
 
-//24236
+
         // Setup the query
         var settings = $.extend({
             id: pageTreeID,
@@ -93,7 +93,7 @@
 
     // Run functions on load
     $(function() {
-        console.log("JS loaded");
+        //console.log("JS loaded");
         if ($('#accordion').length) {
 
             initatePathaccordion();
