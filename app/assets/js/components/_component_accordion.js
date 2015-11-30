@@ -14,11 +14,15 @@
         //debug(lang);
         //debug(i18n.en.itservices.readmore);
         data.meta = settings;
+        //debug(settings);
 
 
-
-
-        //debug(data);
+        $.each(data.children, function(){
+            //debug(this);
+            this.footer = settings.footer;
+            //debug(this);
+        });
+        //debug(data.children);
         var templateSource, markup;
 
 
@@ -35,14 +39,28 @@
 
 
     accordionLoadData = function(options) {
-        var pageTreeID = $('#accordion').attr('data-page-tree-id');
+        var pageTreeID = $('#accordion').attr('data-page-tree-id'),
+            enableFooter = $('#accordion').attr('data-footer'),
+            server = $('#accordion').attr('data-server'),
+            footer;
+
+        if (enableFooter === 'false') {
+            footer = false;
+        } else {
+            footer = true;
+        }
+
+        if (typeof server === 'undefined') {
+            server = 'www2';
+        }
 
 
         // Setup the query
         var settings = $.extend({
             id: pageTreeID,
             url: 'http://hiof.no/api/v1/page-relationship/',
-            server: 'www2'
+            server: server,
+            footer: footer
         }, options);
         //debug(settings);
 
@@ -120,5 +138,5 @@
 
     });
     // Expose functions to the window
-
+    window.Hiof.reloadAccordion = accordionLoadData;
 })(window.Hiof = window.Hiof || {});
