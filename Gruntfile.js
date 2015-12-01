@@ -8,20 +8,37 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         moment: require('moment'),
         // Tasks
-        less: {
-            standard: {
-                options: {
+        //less: {
+        //    standard: {
+        //        options: {
+        //        },
+        //        files: [{
+        //            expand: true,
+        //            cwd: 'app/assets/less/',
+        //            src: ['*.less'],
+        //            dest: 'build/',
+        //            ext: '.css'
+        //        }]
+        //    }
+        //},
 
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'app/assets/less/',
-                    src: ['*.less'],
-                    dest: 'build/',
-                    ext: '.css'
-                }]
+
+        sass: {
+
+            options: {},
+            www: {
+                files: {
+                    'build/accordion-view.css': 'app/assets/sass/www-accordion-view.scss'
+                }
+            },
+            www2: {
+                files: {
+                    'build/accordion-view.css': 'app/assets/sass/www2-accordion-view.scss'
+                }
             }
+
         },
+
         autoprefixer: {
             options: {
                 browsers: ['last 2 versions', 'ie 8', 'ie 9']
@@ -346,17 +363,23 @@ module.exports = function(grunt) {
 
     // Register tasks
     grunt.registerTask('subtaskJs', ['handlebars', 'jshint', 'concat:scripts', 'uglify']);
-    grunt.registerTask('subtaskCss', ['less', 'autoprefixer', 'cssmin']);
+    //grunt.registerTask('subtaskCss', ['sass', 'autoprefixer', 'cssmin']);
+    grunt.registerTask('subtaskClean', ['clean:build', 'clean:tests', 'clean:dist']);
 
     grunt.registerTask('tests', ['copy:testscripts', 'copy:teststyles', 'copy:tests', 'copy:testjsdata']);
 
-    grunt.registerTask('build', ['clean:build', 'tests', 'clean:dist', 'subtaskJs', 'subtaskCss', 'versioning:build']);
-    grunt.registerTask('deploy', ['clean:build', 'clean:tests', 'clean:dist', 'subtaskJs', 'subtaskCss', 'versioning:deploy', 'copy:dist']);
+
+    grunt.registerTask('build', ['subtaskClean', 'tests', 'clean:dist', 'subtaskJs', 'sass:www', 'autoprefixer', 'cssmin', 'versioning:build']);
+    grunt.registerTask('build2', ['subtaskClean', 'tests', 'clean:dist', 'subtaskJs', 'sass:www2', 'autoprefixer', 'cssmin', 'versioning:build']);
+
+
+    grunt.registerTask('deploy', ['build', 'versioning:deploy', 'copy:dist']);
+    grunt.registerTask('deploy2', ['build2', 'versioning:deploy', 'copy:dist']);
 
 
     // Deploy tasks
-    grunt.registerTask('deploy-staging2', ['deploy', 'sftp:stage']);
-    grunt.registerTask('deploy-prod2', ['deploy', 'sftp:prod']);
+    grunt.registerTask('deploy-staging2', ['deploy2', 'sftp:stage']);
+    grunt.registerTask('deploy-prod2', ['deploy2', 'sftp:prod']);
     grunt.registerTask('deploy-staging', ['deploy', 'sftp:stage']);
     grunt.registerTask('deploy-prod', ['deploy', 'sftp:prod']);
 
