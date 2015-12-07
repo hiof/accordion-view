@@ -1,0 +1,61 @@
+@import '../../../vendor/sass-mq/mq';
+@import '../../../vendor/frontend/app/assets/sass/variables/_standard.scss';
+
+
+// IMPORT
+//@import "../../../vendor/frontend/app/assets/less/variables/_standard.less";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_variables";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_mixins";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_panels";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations";
+//@import "../../../vendor/frontend/app/assets/less/components/_component_helpers.less";
+
+#content{
+    .panel-title{
+        a{
+            border-bottom: none;
+        }
+    }
+}
+
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+// Output
+//.universal();
+//@media screen and (max-width: 640px) {
+//    .small();
+//}
+//
+//@media screen and (min-width: 641px) and (max-width: 899px) {
+//    .medium();
+//}
+//
+//@media screen and (min-width: 900px) {
+//    .large();
+//}
+//
+//@media (-webkit-min-device-pixel-ratio: 2),
+//(min-resolution: 192dppx) {
+//    .retina();
+//}
+@media print{
+    .collapse{
+        display: block;
+    }
+    #logo-hiof{
+        &:after {
+            content: url(http://hiof.no/assets/images/logo-hiof.svg);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 60px;
+        }
+    }
+    .panel{
+        border: none;
+    }
+    #header{
+        margin-bottom: 0;
+    }
+}
