@@ -10,10 +10,10 @@
 @import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations";
 //@import "../../../vendor/frontend/app/assets/less/components/_component_helpers.less";
 
-.cover{
+#content{
     .panel-title{
         a{
-            text-decoration: none;
+            border-bottom: none;
         }
     }
 }

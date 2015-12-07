@@ -1,8 +1,8 @@
 @import '../../../vendor/sass-mq/mq';
 @import '../../../vendor/frontend/app/assets/sass/variables/_standard.scss';
-@import '../../../vendor/hiof-layout/dist/layout';
+//@import '../../../vendor/hiof-layout/dist/layout';
 @import '../../../vendor/hiof-colors/dist/colors';
-@import '../../../vendor/hiof-typography/dist/typography';
+//@import '../../../vendor/hiof-typography/dist/typography';
 
 
 // IMPORT
@@ -13,13 +13,7 @@
 @import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations";
 //@import "../../../vendor/frontend/app/assets/less/components/_component_helpers.less";
 
-.cover{
-    .panel-title{
-        a{
-            text-decoration: none;
-        }
-    }
-}
+
 
 // -----------------------------------------------------------
 // -----------------------------------------------------------

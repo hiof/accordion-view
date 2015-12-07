@@ -9,6 +9,14 @@
 
         var lang = Hiof.options.language.toString();
         var i18n = Hiof.options.i18n;
+        var filter = $('#accordion').attr('data-filter');
+
+
+        if (typeof filter === 'undefined') {
+            filter = false;
+        }else{
+            filter = true;
+        }
         //var data = semesterStartLoadData(options);
         //debug('From itservicesAppendData:');
         //debug(lang);
@@ -17,13 +25,14 @@
         //debug(settings);
 
 
-        $.each(data.children, function(){
+        $.each(data.children, function() {
             //debug(this);
             this.footer = settings.footer;
             //debug(this);
         });
         //debug(data.children);
-        var templateSource, markup;
+        var templateSource, templateSourceFilter, markup, markupFilter;
+
 
 
 
@@ -33,6 +42,15 @@
 
 
         $('#accordion').html(markup);
+
+        if (filter) {
+            templateSourceFilter = Hiof.Templates['accordion/filter'];
+            markupFilter = templateSourceFilter(data);
+            $('#accordion').prepend(markupFilter);
+        }
+
+
+
         var scrollDestEl = "#content";
         Hiof.scrollToElement(scrollDestEl);
     };
@@ -135,6 +153,31 @@
         //    //}
         //});
 
+
+
+        $(document).on('change paste keyup','.filterinput',function() {
+            //console.log('keyup...');
+            var a = $(this).val();
+            //console.log('value:');
+            //console.log(a);
+            if (a.length > 0) {
+                children = ($("#accordion-list").children());
+
+                var containing = children.filter(function() {
+                    var regex = new RegExp('' + a, 'i');
+                    //console.log(regex);
+                    return regex.test($('.panel-title, .panel-collapse', this).text());
+                }).slideDown();
+                children.not(containing).slideUp();
+            } else {
+                children.slideDown();
+            }
+            return false;
+        });
+        $(document).on('click','#accordion .btn',function(e) {
+            e.preventDefault();
+            $('#accordion .filterinput').val('').change();
+        });
 
     });
     // Expose functions to the window
