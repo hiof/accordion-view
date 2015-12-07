@@ -1,4 +1,4 @@
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group" id="accordion-list" role="tablist" aria-multiselectable="true">
 
 
 {{#each children}}
@@ -14,14 +14,17 @@
       <div class="panel-body">
         {{{contents}}}
       </div>
-      <div class="panel-footer">
-        <p>      {{#if time_modified}}
-
-        <small>Sist oppdatert av <a href="mailto:{{modified_by_email}}">{{modified_by}}</a> den {{time_modified}}</small>
-      {{else}}
-        <small>Skrevet av <a href="mailto:{{created_by_email}}">{{created_by}}</a> den {{time_created}}</small>
-      {{/if}}</p>
-      </div>
+      {{#if footer}}
+        <div class="panel-footer">
+          <p>
+            {{#if time_modified}}
+              <small>Sist oppdatert av <a href="mailto:{{modified_by_email}}">{{modified_by}}</a> den {{time_modified}}</small>
+            {{else}}
+              <small>Skrevet av <a href="mailto:{{created_by_email}}">{{created_by}}</a> den {{time_created}}</small>
+            {{/if}}
+          </p>
+        </div>
+      {{/if}}
     </div>
   </div>
 {{/each}}

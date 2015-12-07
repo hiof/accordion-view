@@ -9,17 +9,30 @@
 
         var lang = Hiof.options.language.toString();
         var i18n = Hiof.options.i18n;
+        var filter = $('#accordion').attr('data-filter');
+
+
+        if (typeof filter === 'undefined') {
+            filter = false;
+        }else{
+            filter = true;
+        }
         //var data = semesterStartLoadData(options);
         //debug('From itservicesAppendData:');
         //debug(lang);
         //debug(i18n.en.itservices.readmore);
         data.meta = settings;
+        //debug(settings);
 
 
+        $.each(data.children, function() {
+            //debug(this);
+            this.footer = settings.footer;
+            //debug(this);
+        });
+        //debug(data.children);
+        var templateSource, templateSourceFilter, markup, markupFilter;
 
-
-        //debug(data);
-        var templateSource, markup;
 
 
 
@@ -29,20 +42,43 @@
 
 
         $('#accordion').html(markup);
+
+        if (filter) {
+            templateSourceFilter = Hiof.Templates['accordion/filter'];
+            markupFilter = templateSourceFilter(data);
+            $('#accordion').prepend(markupFilter);
+        }
+
+
+
         var scrollDestEl = "#content";
         Hiof.scrollToElement(scrollDestEl);
     };
 
 
     accordionLoadData = function(options) {
-        var pageTreeID = $('#accordion').attr('data-page-tree-id');
+        var pageTreeID = $('#accordion').attr('data-page-tree-id'),
+            enableFooter = $('#accordion').attr('data-footer'),
+            server = $('#accordion').attr('data-server'),
+            footer;
+
+        if (enableFooter === 'false') {
+            footer = false;
+        } else {
+            footer = true;
+        }
+
+        if (typeof server === 'undefined') {
+            server = 'www2';
+        }
 
 
         // Setup the query
         var settings = $.extend({
             id: pageTreeID,
             url: 'http://hiof.no/api/v1/page-relationship/',
-            server: 'www2'
+            server: server,
+            footer: footer
         }, options);
         //debug(settings);
 
@@ -118,7 +154,32 @@
         //});
 
 
+
+        $(document).on('change paste keyup','.filterinput',function() {
+            //console.log('keyup...');
+            var a = $(this).val();
+            //console.log('value:');
+            //console.log(a);
+            if (a.length > 0) {
+                children = ($("#accordion-list").children());
+
+                var containing = children.filter(function() {
+                    var regex = new RegExp('' + a, 'i');
+                    //console.log(regex);
+                    return regex.test($('.panel-title, .panel-collapse', this).text());
+                }).slideDown();
+                children.not(containing).slideUp();
+            } else {
+                children.slideDown();
+            }
+            return false;
+        });
+        $(document).on('click','#accordion .btn',function(e) {
+            e.preventDefault();
+            $('#accordion .filterinput').val('').change();
+        });
+
     });
     // Expose functions to the window
-
+    window.Hiof.reloadAccordion = accordionLoadData;
 })(window.Hiof = window.Hiof || {});
