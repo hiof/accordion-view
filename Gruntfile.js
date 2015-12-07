@@ -252,8 +252,8 @@ module.exports = function(grunt) {
                     path: '<%= secret.stage2.path %>',
                     srcBasePath: "dist/",
                     host: '<%= secret.stage2.host %>',
-                    username: '<%= secret.stage.username %>',
-                    password: '<%= secret.stage.password %>',
+                    username: '<%= secret.stage2.username %>',
+                    password: '<%= secret.stage2.password %>',
                     //privateKey: grunt.file.read('id_rsa'),
                     //passphrase: '<%= secret.passphrase %>',
                     showProgress: true,
@@ -269,8 +269,8 @@ module.exports = function(grunt) {
                     path: '<%= secret.prod2.path %>',
                     srcBasePath: "dist/",
                     host: '<%= secret.prod2.host %>',
-                    username: '<%= secret.prod.username %>',
-                    password: '<%= secret.prod.password %>',
+                    username: '<%= secret.prod2.username %>',
+                    password: '<%= secret.prod2.password %>',
                     //privateKey: grunt.file.read('id_rsa'),
                     //passphrase: '<%= secret.passphrase %>',
                     showProgress: true,
@@ -378,8 +378,8 @@ module.exports = function(grunt) {
 
 
     // Deploy tasks
-    grunt.registerTask('deploy-staging2', ['deploy2', 'sftp:stage']);
-    grunt.registerTask('deploy-prod2', ['deploy2', 'sftp:prod']);
+    grunt.registerTask('deploy-staging2', ['deploy2', 'sftp:stage2']);
+    grunt.registerTask('deploy-prod2', ['deploy2', 'sftp:prod2']);
     grunt.registerTask('deploy-staging', ['deploy', 'sftp:stage']);
     grunt.registerTask('deploy-prod', ['deploy', 'sftp:prod']);
 
