@@ -8,23 +8,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         moment: require('moment'),
         // Tasks
-        //less: {
-        //    standard: {
-        //        options: {
-        //        },
-        //        files: [{
-        //            expand: true,
-        //            cwd: 'app/assets/less/',
-        //            src: ['*.less'],
-        //            dest: 'build/',
-        //            ext: '.css'
-        //        }]
-        //    }
-        //},
-
-
         sass: {
-
             options: {},
             www: {
                 files: {
@@ -36,7 +20,6 @@ module.exports = function(grunt) {
                     'build/accordion-view.css': 'app/assets/sass/www2-accordion-view.scss'
                 }
             }
-
         },
 
         autoprefixer: {
@@ -134,7 +117,8 @@ module.exports = function(grunt) {
                     'vendor/frontend/app/assets/js/components/__options.js',
                     'vendor/bootstrap/js/transition.js',
                     'vendor/bootstrap/js/collapse.js',
-                    'app/assets/js/components/_component_accordion.js'
+                    'app/assets/js/_accordion_functions.js',
+                    'app/assets/js/_accordion_interactivity.js'
                 ],
                 dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
             }

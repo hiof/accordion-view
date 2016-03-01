@@ -125,73 +125,7 @@
 
   };
 
-  // Routing
-  Path.map("#/informasjon").to(function() {
-    accordionLoadData();
-  });
-  Path.map("#/informasjon/").to(function() {
-    accordionLoadData();
-  });
 
-  initatePathaccordion = function() {
-    // Load root path if no path is active
-    Path.root("#/informasjon");
-  };
-
-
-  // Run functions on load
-  $(function() {
-    //console.log("JS loaded");
-    if ($('#accordion').length) {
-
-      initatePathaccordion();
-      Path.listen();
-
-    }
-    $('.collapse').collapse();
-    //$(document).on('click', '#accordion a', function(e) {
-    //    $(this).toggleClass('open');
-    //    //e.preventDefault();
-    //    //var url = $(this).attr('href');
-    //    //if (url.substring(0, 2) == "#/") {
-    //    //    //debug('String starts with #/');
-    //    //} else if (url.substring(0, 1) == "#") {
-    //    //    hash = url + "";
-    //    //    e.preventDefault();
-    //    //    setTimeout(function() {
-    //    //        scrollToElement(hash);
-    //    //    }, 200);
-    //    //
-    //    //}
-    //});
-
-
-
-    $(document).on('change paste keyup','.filterinput',function() {
-      //console.log('keyup...');
-      var a = $(this).val();
-      //console.log('value:');
-      //console.log(a);
-      if (a.length > 0) {
-        children = ($("#accordion-list").children());
-
-        var containing = children.filter(function() {
-          var regex = new RegExp('' + a, 'i');
-          //console.log(regex);
-          return regex.test($('.panel-title, .panel-collapse', this).text());
-        }).slideDown();
-        children.not(containing).slideUp();
-      } else {
-        children.slideDown();
-      }
-      return false;
-    });
-    $(document).on('click','#accordion .btn',function(e) {
-      e.preventDefault();
-      $('#accordion .filterinput').val('').change();
-    });
-
-  });
   // Expose functions to the window
   window.Hiof.reloadAccordion = accordionLoadData;
 })(window.Hiof = window.Hiof || {});
