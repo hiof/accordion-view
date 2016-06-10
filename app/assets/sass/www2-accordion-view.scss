@@ -5,12 +5,31 @@
 //@import '../../../vendor/hiof-typography/dist/typography';
 
 
+
+// Reset old .btn implementation
+.btn{
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+
+	-webkit-text-shadow: none;
+	-moz-text-shadow: none;
+	text-shadow: none;
+
+  text-transform: inherit;
+  height: auto;
+  margin-right: auto;
+}
+
 // IMPORT
 //@import "../../../vendor/frontend/app/assets/less/variables/_standard.less";
 @import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_variables";
 @import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_mixins";
 @import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_panels";
 @import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_buttons";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_forms";
+@import "../../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/_input-groups";
 //@import "../../../vendor/frontend/app/assets/less/components/_component_helpers.less";
 
 
