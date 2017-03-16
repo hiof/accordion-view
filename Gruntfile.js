@@ -83,13 +83,20 @@ module.exports = function(grunt) {
       build: ['build/**/*'],
       tests: ['build/tests/**/*', 'build/assets/**/*']
     },
-
-    jshint: {
+    eslint: {
       options: {
-        ignores: ['app/assets/js/templates/templates.js']
+        //format: require('babel-eslint'),
+        quiet: true
+        //rulePath: ['node_modules/eslint-rules-es2015/lib/index.js']
       },
-      files: ['app/assets/js/**/*.js', 'Gruntfile.js', 'bower.json', 'package.json']
+      target: ['app/assets/js/**/*.js']
     },
+    //jshint: {
+    //  options: {
+    //    ignores: ['app/assets/js/templates/templates.js']
+    //  },
+    //  files: ['app/assets/js/**/*.js', 'Gruntfile.js', 'bower.json', 'package.json']
+    //},
     handlebars: {
       options: {
         namespace: 'Hiof.Templates',
@@ -107,6 +114,18 @@ module.exports = function(grunt) {
         }
       }
     },
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: ['es2015']
+      },
+      dist: {
+        files: {
+          'build/_<%= pkg.name %>-functionality.js': 'app/assets/js/_accordion-functions.js',
+          'build/_<%= pkg.name %>-interactivity.js': 'app/assets/js/_accordion-interactivity.js',
+        }
+      }
+    },
     concat: {
       scripts: {
         src: [
@@ -120,8 +139,8 @@ module.exports = function(grunt) {
           'vendor/frontend/app/assets/js/components/__options.js',
           'vendor/bootstrap/js/transition.js',
           'vendor/bootstrap/js/collapse.js',
-          'app/assets/js/_accordion-functions.js',
-          'app/assets/js/_accordion-interactivity.js'
+          'build/_<%= pkg.name %>-functionality.js',
+          'build/_<%= pkg.name %>-interactivity.js'
         ],
         dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
       }
@@ -318,7 +337,7 @@ module.exports = function(grunt) {
     },
     js: {
       files: ['app/assets/js/**/*.js', 'app/assets/js/**/*.json'],
-      tasks: ['jshint', 'concat:scripts', 'versioning:build'],
+      tasks: ['eslint', 'concat:scripts', 'versioning:build'],
       options: {
         livereload: true,
       },
@@ -349,7 +368,7 @@ module.exports = function(grunt) {
 // Tasks
 
 // Register tasks
-grunt.registerTask('subtaskJs', ['handlebars', 'jshint', 'concat:scripts', 'uglify']);
+grunt.registerTask('subtaskJs', ['eslint', 'handlebars', 'babel', 'concat:scripts', 'uglify']);
 //grunt.registerTask('subtaskCss', ['sass', 'autoprefixer', 'cssmin']);
 grunt.registerTask('subtaskClean', ['clean:build', 'clean:tests', 'clean:dist']);
 
