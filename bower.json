@@ -16,8 +16,8 @@
     "jQuery-ajaxTransport-XDomainRequest": "https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest.git",
     "detectjs": "https://github.com/darcyclarke/Detect.js.git",
     "sass-mq": "~3.2.4",
-    "hiof-layout": "git@github.com:hiof/layout.git",
-    "hiof-colors": "git@github.com:hiof/colors.git",
-    "hiof-typography": "git@github.com:hiof/typography.git"
+    "hiof-layout": "https://github.com/hiof/layout.git",
+    "hiof-colors": "https://github.com/hiof/colors.git",
+    "hiof-typography": "https://github.com/hiof/typography.git"
   }
 }
