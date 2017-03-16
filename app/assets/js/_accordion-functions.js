@@ -88,7 +88,7 @@
     // Setup the query
     var settings = $.extend({
       id: pageTreeID,
-      url: 'http://hiof.no/api/v1/page-relationship/',
+      url: '//www.hiof.no/api/v1/page-relationship/',
       server: server,
       footer: footer
     }, options);
