@@ -1,51 +1,60 @@
-(function(Hiof, undefined) {
+class AccordionView {
+  constructor(){
+    this.view = new View();
+    this.templateAccordionShow = Hiof.Templates['accordion/show'];
+    this.templateSourceFilter = Hiof.Templates['accordion/filter'];
+    this.filter =  $('#accordion').attr('data-filter');
+    this.enableFooter = $('#accordion').attr('data-footer');
+    this.server = $('#accordion').attr('data-server');
+    this.pageTreeID = $('#accordion').attr('data-page-tree-id');
 
-  // Functions
-  //accordionAppendData = function(data, settings) {
-  //
-  //};
-
-  accordionAppendData = function(data, settings) {
-
-    var lang = Hiof.options.language.toString();
-    var i18n = Hiof.options.i18n;
-    var filter = $('#accordion').attr('data-filter');
-
-
-    if (typeof filter === 'undefined') {
-      filter = false;
+    if (typeof this.filter === 'undefined') {
+      this.filter = false;
     }else{
-      filter = true;
+      this.filter = true;
     }
-    //var data = semesterStartLoadData(options);
-    //debug('From itservicesAppendData:');
-    //debug(lang);
-    //debug(i18n.en.itservices.readmore);
-    data.meta = settings;
-    //debug(settings);
 
+    if (this.enableFooter === 'false') {
+      this.footer = false;
+    } else {
+      this.footer = true;
+    }
+    if (typeof this.server === 'undefined') {
+      this.server = 'www2';
+    }
 
-    $.each(data.children, function() {
-      //debug(this);
-      this.footer = settings.footer;
-      //debug(this);
-    });
-    //debug(data.children);
-    var templateSource, templateSourceFilter, markup, markupFilter;
+    this.defaults = {
+      lang: this.view.ln,
+      id: this.pageTreeID,
+      url: '//www.hiof.no/api/v1/page-relationship/',
+      server: this.server,
+      footer: this.footer
 
+    }
+  };
+  renderAccordion(options = {}){
+    let settings = Object.assign(
+      {},
+      this.defaults
 
+    );
 
+    let that = this;
+    this.view.getData(settings, that).success(function(data){
 
-    templateSource = Hiof.Templates['accordion/show'];
+      data.meta = settings;
 
-    markup = templateSource(data);
+      $.each(data.children, function() {
+        this.footer = settings.footer;
+      });
 
+      let markup = that.templateAccordionShow(data);
 
-    $('#accordion').html(markup);
+      $('#accordion').html(markup);
 
-    if (filter) {
-      var ln = $('html').attr('lang');
-      var meta = {
+      if (that.filter) {
+        var ln = $('html').attr('lang');
+        var meta = {
           "en": {
             "placeholder": "Search for...",
             "emptysearch": "Reset search"
@@ -54,78 +63,17 @@
             "placeholder": "Søk etter...",
             "emptysearch": "Tøm søk"
           }
-      };
-      data.meta = meta[ln];
-      templateSourceFilter = Hiof.Templates['accordion/filter'];
-      markupFilter = templateSourceFilter(data);
-      $('#accordion').prepend(markupFilter);
-    }
-
-
-
-    var scrollDestEl = "#content";
-    Hiof.scrollToElement(scrollDestEl);
-  };
-
-
-  accordionLoadData = function(options) {
-    var pageTreeID = $('#accordion').attr('data-page-tree-id'),
-    enableFooter = $('#accordion').attr('data-footer'),
-    server = $('#accordion').attr('data-server'),
-    footer;
-
-    if (enableFooter === 'false') {
-      footer = false;
-    } else {
-      footer = true;
-    }
-
-    if (typeof server === 'undefined') {
-      server = 'www2';
-    }
-
-
-    // Setup the query
-    var settings = $.extend({
-      id: pageTreeID,
-      url: '//www.hiof.no/api/v1/page-relationship/',
-      server: server,
-      footer: footer
-    }, options);
-    //debug(settings);
-
-
-    var contentType = "application/x-www-form-urlencoded; charset=utf-8";
-    if (window.XDomainRequest) { //for IE8,IE9
-      contentType = "text/plain";
-    }
-    $.ajax({
-      url: settings.url,
-      method: 'GET',
-      async: true,
-      dataType: 'json',
-      data: settings,
-      contentType: contentType,
-      success: function(data) {
-        //alert("Data from Server: "+JSON.stringify(data));
-        //debug('Settings from success');
-        //debug(settings);
-        //debug('Data from success');
-        //debug(data);
-        //return data;
-        accordionAppendData(data, settings);
-        //Hiof.articleDisplayView(data, settings);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        //alert("You can not send Cross Domain AJAX requests: " + errorThrown);
+        };
+        data.meta = meta[ln];
+        //templateSourceFilter = Hiof.Templates['accordion/filter'];
+        let markupFilter = that.templateSourceFilter(data);
+        $('#accordion').prepend(markupFilter);
       }
+
+      var scrollDestEl = "#content";
+      Hiof.scrollToElement(scrollDestEl);
 
     });
 
-
   };
-
-
-  // Expose functions to the window
-  window.Hiof.reloadAccordion = accordionLoadData;
-})(window.Hiof = window.Hiof || {});
+};

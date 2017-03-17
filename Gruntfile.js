@@ -121,13 +121,14 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
+          'build/_view.js': 'vendor/frontend/app/assets/js/components/_view.js',
           'build/_<%= pkg.name %>-functionality.js': 'app/assets/js/_accordion-functions.js',
           'build/_<%= pkg.name %>-interactivity.js': 'app/assets/js/_accordion-interactivity.js',
         }
       }
     },
     concat: {
-      scripts: {
+      www: {
         src: [
           'vendor/jQuery-ajaxTransport-XDomainRequest/jquery.xdomainrequest.min.js',
           'vendor/pathjs/path.js',
@@ -135,15 +136,34 @@ module.exports = function(grunt) {
           'vendor/jquery.scrollTo/jquery.scrollTo.js',
           'build/templates.js',
           'vendor/detectjs/detect.min.js',
-          'vendor/frontend/app/assets/js/components/__helper.js',
-          'vendor/frontend/app/assets/js/components/__options.js',
+          //'vendor/frontend/app/assets/js/components/__helper.js',
+          //'vendor/frontend/app/assets/js/components/__options.js',
           'vendor/bootstrap/js/transition.js',
           'vendor/bootstrap/js/collapse.js',
           'build/_<%= pkg.name %>-functionality.js',
           'build/_<%= pkg.name %>-interactivity.js'
         ],
         dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
-      }
+      },
+
+        www2: {
+          src: [
+            'vendor/jQuery-ajaxTransport-XDomainRequest/jquery.xdomainrequest.min.js',
+            'vendor/pathjs/path.js',
+            'vendor/handlebars/handlebars.js',
+            'vendor/jquery.scrollTo/jquery.scrollTo.js',
+            'build/templates.js',
+            'vendor/detectjs/detect.min.js',
+            //'vendor/frontend/app/assets/js/components/__helper.js',
+            //'vendor/frontend/app/assets/js/components/__options.js',
+            'vendor/bootstrap/js/transition.js',
+            'vendor/bootstrap/js/collapse.js',
+            'build/_view.js',
+            'build/_<%= pkg.name %>-functionality.js',
+            'build/_<%= pkg.name %>-interactivity.js'
+          ],
+          dest: 'build/<%= pkg.name %>.v<%= pkg.version %>.min.js'
+        }
     },
     uglify: {
       options: {
@@ -337,7 +357,7 @@ module.exports = function(grunt) {
     },
     js: {
       files: ['app/assets/js/**/*.js', 'app/assets/js/**/*.json'],
-      tasks: ['eslint', 'concat:scripts', 'versioning:build'],
+      tasks: ['eslint', 'concat:www', 'versioning:build'],
       options: {
         livereload: true,
       },
@@ -368,7 +388,8 @@ module.exports = function(grunt) {
 // Tasks
 
 // Register tasks
-grunt.registerTask('subtaskJs', ['eslint', 'handlebars', 'babel', 'concat:scripts', 'uglify']);
+grunt.registerTask('subtaskJs', ['eslint', 'handlebars', 'babel', 'concat:www', 'uglify']);
+grunt.registerTask('subtaskJs2', ['eslint', 'handlebars', 'babel', 'concat:www2', 'uglify']);
 //grunt.registerTask('subtaskCss', ['sass', 'autoprefixer', 'cssmin']);
 grunt.registerTask('subtaskClean', ['clean:build', 'clean:tests', 'clean:dist']);
 
@@ -376,7 +397,7 @@ grunt.registerTask('tests', ['copy:testscripts', 'copy:teststyles', 'copy:tests'
 
 
 grunt.registerTask('build', ['subtaskClean', 'tests', 'clean:dist', 'subtaskJs', 'sass:www', 'autoprefixer', 'cssmin', 'versioning:build']);
-grunt.registerTask('build2', ['subtaskClean', 'tests', 'clean:dist', 'subtaskJs', 'sass:www2', 'autoprefixer', 'cssmin', 'versioning:build']);
+grunt.registerTask('build2', ['subtaskClean', 'tests', 'clean:dist', 'subtaskJs2', 'sass:www2', 'autoprefixer', 'cssmin', 'versioning:build']);
 
 
 grunt.registerTask('deploy', ['build', 'versioning:deploy', 'copy:dist']);
