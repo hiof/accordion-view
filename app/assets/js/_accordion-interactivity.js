@@ -1,34 +1,34 @@
 (function(Hiof, undefined) {
-  // Routing
-  Path.map("#/informasjon").to(function() {
-    Hiof.reloadAccordion();
-  });
-  Path.map("#/informasjon/").to(function() {
-    Hiof.reloadAccordion();
-  });
-
-  initatePathaccordion = function() {
-    // Load root path if no path is active
-    Path.root("#/informasjon");
-  };
-
 
   // Run functions on load
   $(function() {
-    //console.log("JS loaded");
-    if ($('#accordion').length) {
 
+
+    let accordion = new AccordionView();
+
+    // Routing
+    Path.map("#/informasjon").to(function() {
+      accordion.renderAccordion();
+    });
+    Path.map("#/informasjon/").to(function() {
+      accordion.renderAccordion();
+    });
+
+    initatePathaccordion = function() {
+      // Load root path if no path is active
+      Path.root("#/informasjon");
+    };
+
+    if ($('#accordion').length) {
       initatePathaccordion();
       Path.listen();
-
     }
     $('.collapse').collapse();
 
     $(document).on('change paste keyup','.filterinput',function() {
-      //console.log('keyup...');
+
       var a = $(this).val();
-      //console.log('value:');
-      //console.log(a);
+
       if (a.length > 0) {
         children = ($("#accordion-list").children());
 
